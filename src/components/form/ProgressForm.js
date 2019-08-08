@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import icons from '../../utils/fontawesome';
+import icons from '../../utils/style/fontawesome';
 import { Dashed, Icon, ProgressBar } from './form.styled';
 const {user, envelope, profil, key} = icons;
 
 const err = {
     boxShadow: 'inset -1px 0px 3px 2px red',
     border:'none',
-    padding:'5px',
+    padding:'10px',
 }
 const success= {
     boxShadow: 'inset -1px 0px 3px 2px rgba(79,238,118,0.85)',
