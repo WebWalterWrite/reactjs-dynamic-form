@@ -1,30 +1,34 @@
 import styled from 'styled-components/macro';
+import media from '../../utils/style/responsive.styled';
 
 export const FormContainer = styled.section`
 text-align: center;
-height:50vh;
-width:70%;
 border: #F7DF1C solid 1px;
 border-radius:4px;
 margin:0 auto;
+${media.desktop` height:55vh; width:70%;`}
+${media.mPhone`height:100vh; width: 90%;`}
 h1{
-    width:20%;
-    margin:0 auto;
-    margin-top:.5em;
-    background-color: #F7DF1C;
-    color:#20222A;
-    border-radius:4px;
+width:20%;
+margin:0 auto;
+margin-top:.5em;
+background-color: #F7DF1C;
+color:#20222A;
+border-radius:4px;
 }
 form{
     margin:0 auto;
     margin-top:2em;
-    width:500px;
+    ${media.desktop`width:500px;`}
+    ${media.mPhone`height:100vh; width: 300px;`}
     border-radius:4px;
     overflow: hidden;
-}
-`
+};
+
+`;
 export const InputContainer = styled.div`
-width:1500px;
+${media.desktop`width:1500px;`}
+ ${media.mPhone`width: 900px;`}
 display: flex;
 flex-wrap: nowrap;
 transform: ${props => props.pos && `translateX(-${props.pos}px)`};
@@ -124,10 +128,9 @@ export const Error = styled.div`
     background-color:${props => props.error && '#FF9494'};
     border-radius: 0px 0px 4px 4px;
     color:red;
-    height:30px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:22px; 
+    min-height:30px;
+    height:auto;
+    font-size:22px;
+    text-align: left;
 `;
 
