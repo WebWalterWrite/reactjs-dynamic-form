@@ -115,7 +115,7 @@ export const isOnlyLetters = fieldValue => {
     let errors = {};
     const specialsCharacter = "password must contain one of the characters $, @, !, %, ?";
 	const upperCase = "password must contain a upper case";
-	const number = "password must contain on-- of the characters";
+	const number = "password must contain 2 numbers";
 
     const hasNumber = isNotNumber(fieldValue);
     const hasUpperCase = isNotUpperCase(fieldValue);
