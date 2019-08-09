@@ -18,7 +18,7 @@ const formValidation =  (fieldName, fieldValue) => {
     let errEmpty = `Your ${fieldName} is required.`;
 	let errMinLength = min => `Your ${fieldName} needs to be at least ${min} characters.`;
 	let errMaxLength = max => `Your ${fieldName} entered must contain a maximum of ${max} characters`;;
-    let errOnlyLetters = `Only letters is required for ${fieldName}`;
+    let errOnlyLetters = `${fieldName} field must contain only letters`;
     let errEmail = `${fieldValue} is not a valid email. Please enter a valid email.`;
 
     
@@ -33,16 +33,21 @@ const formValidation =  (fieldName, fieldValue) => {
 
     if(empty)
     return errEmpty;
+    if (fieldName === "firstname" && notLetters) 
+    return errOnlyLetters;
     if(notLength.min) 
     return errMinLength(notLength.min);
     if(notLength.max)
     return errMaxLength(notLength.max);
-    if(fieldName === 'firstname' && notLetters)
-    return errOnlyLetters;
+
     if(fieldName === 'email' && notEmail)
     return errEmail;
-    if(fieldName === 'password' && notPassword)
-    return Object.values(notPassword);
+    if(fieldName === 'password' && notPassword){
+
+    const arrOfErr = Object.values(notPassword).filter(el => el !== false);
+    
+    return arrOfErr.length === 0 ? false : arrOfErr;
+    }
 
 
 };
