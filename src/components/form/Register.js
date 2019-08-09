@@ -14,10 +14,10 @@ export const Register = () => {
     // state
     const [state, setState ] = useState({
 		left:0, 
-		button:"Next",
 		profil:false,
 		valid:false,
 	});
+	const [button, setButton] = useState(false);
 
 	const [progressBar, setProgressBar] = useState({
 		firstname:"default value",
@@ -71,6 +71,7 @@ export const Register = () => {
 		if (isErrors){
 			setErrors({ msg: isErrors });
 			setProgressBar(prevState => ({ ...prevState, [fieldName]: true }));
+			setButton(false);
 			return false
 		}
 		else{
@@ -90,24 +91,30 @@ export const Register = () => {
 		e.preventDefault();
 
 		const isValid = controlField(e.target);
-		
+	
 		if(isValid && state.left < 1000)
-		
-		setState( 
+		return setState( 
 			{...state, 
 			left:state.left+500,
 			envelope: state.left < 1000 && true,
 			key: state.envelope === true && true
 		 });
+		 if(isValid && state.left === 1000)
+		 return setButton(true)
 	};
 
 
     // prev field form
 	const previousField = () => {
-		setTimeout( () => state.left > 0 && setState({
-			...state,
-			left: state.left -500,
-		 }), (100)
+		setTimeout(
+			() =>
+				state.left > 0 &&
+				setState({
+					...state,
+					left: state.left - 500
+				}),
+			setButton(false),
+			100
 		);
 	};
     return (
@@ -143,7 +150,7 @@ export const Register = () => {
 
 					<Button visibility={state.left}>
 						<button type="button" onClick={previousField}>Previous</button>
-						<button>{state.button}</button>
+						<button>{button ? "submit" : "next"}</button>
 					</Button>
 				</form>
 			</FormContainer>

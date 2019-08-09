@@ -126,7 +126,9 @@ svg{
 
 export const Error = styled.div`
     background-color:${props => props.error && '#FF9494'};
+    border-bottom: ${props => props.error && 'solid 1px red'};
     border-radius: 0px 0px 4px 4px;
+    padding:5px;
     color:#FFFFFF;
     min-height:20px;
     height:auto;
