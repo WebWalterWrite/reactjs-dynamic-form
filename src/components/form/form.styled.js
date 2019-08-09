@@ -46,7 +46,7 @@ input{
     padding-bottom: 2px;
     background-color:transparent;
     border:0;
-    border-bottom: ${props => !props.error ? 'solid 1px red' : 'solid 1px #F7DF1C'};
+    border-bottom: ${props => props.error ? 'solid 1px red' : 'solid 1px #F7DF1C'};
     font-size:38px;
     color:#FFFFFF;
     outline:none;
@@ -95,7 +95,7 @@ button{
 `;
 
 // Progress bar
-export const ProgressBar= styled.div`
+export const DivProgressBar= styled.div`
 margin: 3em 0 5em 0 !important;
 display:flex;
 justify-content:center;
@@ -127,10 +127,11 @@ svg{
 export const Error = styled.div`
     background-color:${props => props.error && '#FF9494'};
     border-radius: 0px 0px 4px 4px;
-    color:red;
-    min-height:30px;
+    color:#FFFFFF;
+    min-height:20px;
     height:auto;
-    font-size:22px;
+    font-size:14px;
+    font-weight: bold;
     text-align: left;
 `;
 
