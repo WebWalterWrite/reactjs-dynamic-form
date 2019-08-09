@@ -12,7 +12,7 @@ import {
 const formValidation =  (fieldName, fieldValue) => {
 
     // clean fieldValue space
-    const value = fieldValue.trim().replace(/ {1,}/g, "-");
+    const value = fieldValue.trim().replace(/ {1,}/g, " ");
     
     // error message
     let errEmpty = `Your ${fieldName} is required.`;
@@ -45,11 +45,9 @@ const formValidation =  (fieldName, fieldValue) => {
     if(fieldName === 'password' && notPassword){
 
     const arrOfErr = Object.values(notPassword).filter(el => el !== false);
-    
+
     return arrOfErr.length === 0 ? false : arrOfErr;
     }
-
-
 };
 
 export default formValidation;

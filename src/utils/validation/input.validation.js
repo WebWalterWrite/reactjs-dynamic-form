@@ -59,7 +59,7 @@ export const isEmail = fieldValue => {
  */
 export const isOnlyLetters = fieldValue => {
 
-    const regex = /^[a-z]+$/i;
+    const regex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/
     
     const isValid = regex.test(fieldValue);
 
