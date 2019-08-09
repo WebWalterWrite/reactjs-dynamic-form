@@ -2,17 +2,12 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Input from './input.common';
 import formValidation from '../../utils/validation/form.validation';
-import ProgressForm from './ProgressForm';
+import ProgressBar from './ProgressBar';
 // import styles & icons
 import { Button, Error, FormContainer, InputContainer } from "./form.styled";
 import icons from '../../utils/style/fontawesome';
 
-const MapErrors = ({data}) => {
-	
-	const errors = data && data.filter(el => el);
-
-	return errors ? errors.map( el => <div>{el}</div>) : false
-}
+const MapErrors = ({data}) => data && data.map( (el,k) => <div key={k}>{el}</div>);
 
 export const Register = () => {
 
@@ -26,7 +21,7 @@ export const Register = () => {
 
 	const [progressBar, setProgressBar] = useState({
 		firstname:"default value",
-		mail:"default value",
+		email:"default value",
 		password: "default value"
 	});
 	const [errors, setErrors] = useState({
@@ -55,9 +50,16 @@ export const Register = () => {
 
 
 	/**
-	 * 
-	 * @param {object} currentField -
+	 * @description controlField -:
+	 * 	- Récupérer le nom du champ saisi
+	 * 	- Récupére la valeur de ce dernier
+	 * 	- Transmet à isErrors pour checker si il y a des erreurs de saisie
+	 *  - Si isErrors est à true le message d'erreur actualise le state d'erreurs et de la progress bar
+	 *  - Si isErrors est à false, il retourne true à la fonction nextField 
+	 * @param {object} currentField - le champ courant de saisie
+	 * @returns {boolean}
 	 */
+
 	const controlField = currentField => {
 
 		const fieldName = targetField(); // récupérer le nom de l'input
@@ -65,26 +67,30 @@ export const Register = () => {
 		const fieldValue = currentField[fieldName].value; // récupérer la valeur de l'input
 		
 		const isErrors = formValidation(fieldName, fieldValue); // Validation des données du champ	
-		
-		console.log(isErrors);
 
-		if(isErrors)
-		return (
-			setErrors({msg:isErrors}),
-			setProgressBar(prevState => ({...prevState,[fieldName]:true}))
-		)
-		setErrors({msg:""});
-		setProgressBar(prevState => ({...prevState,[fieldName]:false}));
-		return true;
+		if (isErrors){
+			setErrors({ msg: isErrors });
+			setProgressBar(prevState => ({ ...prevState, [fieldName]: true }));
+			return false
+		}
+		else{
+			setErrors({msg:""});
+			setProgressBar(prevState => ({...prevState,[fieldName]:false}));
+			return true;
+		}
 								
 	}
-    // next field form
+
+    /**
+	 * @description - 
+	 * 
+	 */
     const nextField = e => {
 
 		e.preventDefault();
 
 		const isValid = controlField(e.target);
-	
+		
 		if(isValid && state.left < 1000)
 		
 		setState( 
@@ -109,11 +115,11 @@ export const Register = () => {
 				<h1>Register</h1>
 
 				{/* barre de progession  */}
-				<ProgressForm data={progressBar}/>
+				<ProgressBar data={progressBar}/>
 
 				{/* formulaire */}
 				<form onSubmit={nextField} noValidate>
-					<InputContainer pos={state.left} error={errors.status}>
+					<InputContainer pos={state.left} error={errors.msg}>
 						<div>
 							<FontAwesomeIcon icon={user} size="2x" />
 							<Input value="firstname" />
@@ -132,8 +138,9 @@ export const Register = () => {
 					<Error error={errors.msg}>
 						{(Array.isArray(errors.msg))
 						? <MapErrors data={errors.msg}/> 
-						: errors.msg }
+						: errors.msg && errors.msg }
 					</Error>
+
 					<Button visibility={state.left}>
 						<button type="button" onClick={previousField}>Previous</button>
 						<button>{state.button}</button>
