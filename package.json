@@ -13,7 +13,7 @@
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
-    "lodash": ">=4.17.13",
+    "lodash": ">=4.17.21",
     "lodash.template": ">=4.5.0",
     "react-test-renderer": "^16.8.6"
   },
